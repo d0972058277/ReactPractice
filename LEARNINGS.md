@@ -111,11 +111,11 @@ function App() {
 ```
 
 **練習任務：**
-- [ ] 建立 Header 元件檔案
-- [ ] 定義 TypeScript interface
-- [ ] 撰寫 CSS 樣式
-- [ ] 在 App.tsx 中使用元件
-- [ ] 嘗試修改 Props 值，觀察畫面變化
+- [x] 建立 Header 元件檔案
+- [x] 定義 TypeScript interface
+- [x] 撰寫 CSS 樣式
+- [x] 在 App.tsx 中使用元件
+- [x] 嘗試修改 Props 值，觀察畫面變化
 
 ---
 
