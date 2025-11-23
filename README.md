@@ -137,3 +137,51 @@ src/
 2. **元件化開發** - 將 UI 拆分成可重用的元件
 3. **熱更新 (HMR - Hot Module Replacement)** - 修改程式碼立即看到結果，無需手動重新整理，並保留應用程式狀態
 4. **TypeScript** - 提供型別檢查，減少執行時期錯誤
+5. **單向資料流 (Unidirectional Data Flow)** - React 的核心設計理念，資料只能由上而下傳遞
+
+### 單向資料流詳解
+
+在 React 中，資料只能**由上而下**（從父元件到子元件）傳遞，形成單一方向的流動。
+
+**資料流動方向：**
+```
+父元件 (Parent Component)
+    ↓ props
+子元件 (Child Component)
+    ↓ props
+孫元件 (Grandchild Component)
+```
+
+**核心規則：**
+1. **資料往下流** - 透過 `props` 傳遞給子元件
+2. **子元件不能修改 props** - props 是唯讀的
+3. **事件往上傳** - 透過回調函式（callback）通知父元件
+4. **父元件控制狀態** - 由父元件決定是否更新狀態
+
+**範例：**
+```tsx
+// 父元件持有狀態
+function App() {
+  const [count, setCount] = useState(0)  // ← 資料源頭
+
+  return (
+    <div>
+      {/* 透過 props 向下傳遞 */}
+      <Counter count={count} onIncrement={() => setCount(count + 1)} />
+    </div>
+  )
+}
+
+// 子元件接收 props（唯讀）
+function Counter({ count, onIncrement }) {
+  // ❌ 不能直接修改 count
+  // ✅ 只能透過父元件提供的函式來「請求」更新
+  return <button onClick={onIncrement}>{count}</button>
+}
+```
+
+**優點：**
+- ✅ **可預測性** - 資料流動方向明確，容易追蹤資料變化
+- ✅ **除錯容易** - 只需檢查父元件就知道資料來源
+- ✅ **程式碼維護** - 避免多個元件同時修改同一資料造成混亂
+- ✅ **效能最佳化** - React 可以準確判斷哪些元件需要重新渲染
